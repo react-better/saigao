@@ -11,6 +11,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const path = require('path');
 const inquirer = require('inquirer');
+const figlet = require('figlet');
 
 /**
  * download pro
@@ -59,6 +60,13 @@ function downloadPro(projectName, answer, version, template) {
     console.log('  yarn start');
 
     console.log('╔═.' + chalk.red('♥') + '. ═════════════════════════════════════╗');
+    console.log(
+        chalk.hex('#07575B')(
+            figlet.textSync('react-admin', {
+                font: 'Slant',
+            })
+        )
+    );
     console.log(' https://github.com/yezihaohao/react-admin');
     console.log(' happy coding~~~');
     console.log('╚══════.' + chalk.red('♥') + '. ════════════════════════════════╝');
