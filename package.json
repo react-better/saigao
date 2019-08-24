@@ -1,6 +1,6 @@
 {
   "name": "react-admin-creator",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "pro": "dist/react-admin-creator.min.js",
   "main": "dist/react-admin-creator.cjs.js",
   "module": "dist/react-admin-creator.esm.js",
