@@ -19,4 +19,15 @@ npx react-admin-creator myapp
 npm i -g react-admin-creator
 
 create-admin-creator myapp
+
+```
+
+### 模板选择
+
+默认安装下载的是typescript版本的模板
+
+如果需要安装下载JavaScript版本的模板，请使用
+```
+// 安装下载JavaScript版本的模板
+npx react-admin-creator myapp --js
 ```

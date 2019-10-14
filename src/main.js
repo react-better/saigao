@@ -21,6 +21,7 @@ const program = new commander.Command(pk.name)
         projectName = name;
     })
     .version(pk.version)
+    .option('--js')
     .on('--help', function() {
         console.log('');
         example();
@@ -36,7 +37,7 @@ if (typeof projectName === 'undefined') {
     process.exit(1);
 }
 
-downloadPro(projectName, pk.version);
+downloadPro(projectName, pk.version, program.js && 'template');
 
 function example() {
     console.log('For example:');

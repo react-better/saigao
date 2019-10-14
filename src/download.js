@@ -43,7 +43,7 @@ function downloadPro(projectName, answer, version, template) {
     // create app path
     const appPath = path.resolve(projectName);
     // copy template to projectName path
-    fs.copySync(path.join(ownPath, 'template'), appPath);
+    fs.copySync(path.join(ownPath, template || 'template-ts'), appPath);
 
     // change package.json
     const appPackage = require(path.join(appPath, 'package.json'));
