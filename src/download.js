@@ -20,11 +20,6 @@ const figlet = require('figlet');
  * @param {*} template
  */
 function download(projectName, version, template) {
-    const exist = fs.existsSync(projectName);
-    if (exist) {
-        console.log(chalk.red('The project directory already exists.Please rename!'));
-        process.exit(1);
-    }
     makeDesc().then(answer => {
         downloadPro(projectName, answer, version, template);
     });

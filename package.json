@@ -1,6 +1,6 @@
 {
   "name": "react-admin-creator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "pro": "dist/react-admin-creator.min.js",
   "main": "dist/react-admin-creator.cjs.js",
   "module": "dist/react-admin-creator.esm.js",
@@ -28,6 +28,7 @@
     "template-ts"
   ],
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "figlet": "^1.2.3",
