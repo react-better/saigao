@@ -4,13 +4,14 @@ export interface IFMenuBase {
     icon?: string;
     component?: string;
     query?: string;
-    auth?: string;
+    requireAuth?: string;
     route?: string;
-    login?: string;
+    /** 是否登录校验，true不进行校验（访客） */
+    login?: boolean;
 }
 
 export interface IFMenu extends IFMenuBase {
-    subs?: IFMenuBase[];
+    subs?: IFMenu[];
 }
 
 const menus: {
@@ -89,7 +90,10 @@ const menus: {
             key: '/subs4',
             title: '页面',
             icon: 'switcher',
-            subs: [{ key: '/login', title: '登录' }, { key: '/404', title: '404' }],
+            subs: [
+                { key: '/login', title: '登录' },
+                { key: '/404', title: '404' },
+            ],
         },
         {
             key: '/app/auth',
@@ -101,7 +105,7 @@ const menus: {
                     key: '/app/auth/routerEnter',
                     title: '路由拦截',
                     component: 'RouterEnter',
-                    auth: 'auth/testPage',
+                    requireAuth: 'auth/testPage',
                 },
             ],
         },
@@ -121,6 +125,29 @@ const menus: {
                     title: '问号形式参数',
                     component: 'QueryParams',
                     query: '?param1=1&param2=2',
+                },
+                {
+                    key: '/app/extension/visitor',
+                    title: '访客模式',
+                    component: 'Visitor',
+                    login: true,
+                },
+                {
+                    key: '/app/extension/multiple',
+                    title: '多级菜单',
+                    subs: [
+                        {
+                            key: '/app/extension/multiple/child',
+                            title: '多级菜单子菜单',
+                            subs: [
+                                {
+                                    key: '/app/extension/multiple/child/child',
+                                    title: '多级菜单子子菜单',
+                                    component: 'MultipleMenu',
+                                },
+                            ],
+                        },
+                    ],
                 },
             ],
         },
