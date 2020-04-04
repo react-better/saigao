@@ -7,6 +7,8 @@ import { Layout, notification, Icon } from 'antd';
 import { ThemePicker } from './components/widget';
 import { connectAlita } from 'redux-alita';
 import { checkLogin } from './utils';
+import { fetchMenu } from './axios';
+import umbrella from 'umbrella-storage';
 
 const { Content, Footer } = Layout;
 
@@ -23,27 +25,27 @@ class App extends Component<AppProps> {
     };
     componentWillMount() {
         const { setAlitaState } = this.props;
-        let user,
-            storageUser = localStorage.getItem('user');
-        user = storageUser && JSON.parse(storageUser);
-        // user && receiveData(user, 'auth');
+        let user = umbrella.getLocalStorage('user');
+        // user = storageUser && JSON.parse(storageUser);
         user && setAlitaState({ stateName: 'auth', data: user });
-        // receiveData({a: 213}, 'auth');
-        // fetchData({funcName: 'admin', stateName: 'auth'});
         this.getClientWidth();
         window.onresize = () => {
-            console.log('屏幕变化了');
             this.getClientWidth();
         };
     }
     componentDidMount() {
+        this.openFNotification();
+        this.fetchSmenu();
+    }
+
+    openFNotification = () => {
         const openNotification = () => {
             notification.open({
                 message: '博主-yezihaohao',
                 description: (
                     <div>
                         <p>
-                            GitHub地址：{' '}
+                            GitHub地址：
                             <a
                                 href="https://github.com/yezihaohao"
                                 target="_blank"
@@ -53,7 +55,7 @@ class App extends Component<AppProps> {
                             </a>
                         </p>
                         <p>
-                            博客地址：{' '}
+                            博客地址：
                             <a
                                 href="https://yezihaohao.github.io/"
                                 target="_blank"
@@ -67,14 +69,27 @@ class App extends Component<AppProps> {
                 icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
                 duration: 0,
             });
-            localStorage.setItem('isFirst', JSON.stringify(true));
+            umbrella.setLocalStorage('hideBlog', true);
         };
-        const storageFirst = localStorage.getItem('isFirst');
-        if (storageFirst) {
-            const isFirst = JSON.parse(storageFirst);
-            !isFirst && openNotification();
+        const storageFirst = umbrella.getLocalStorage('hideBlog');
+        if (!storageFirst) {
+            openNotification();
         }
-    }
+    };
+    /**
+     * 获取服务端异步菜单
+     */
+    fetchSmenu = () => {
+        const setAlitaMenu = (menus: any) => {
+            this.props.setAlitaState({ stateName: 'smenus', data: menus });
+        };
+        setAlitaMenu(umbrella.getLocalStorage('smenus') || []);
+        fetchMenu().then(smenus => {
+            setAlitaMenu(smenus);
+            umbrella.setLocalStorage('smenus', smenus);
+        });
+    };
+
     getClientWidth = () => {
         // 获取当前浏览器宽度并设置responsive管理响应式
         const { setAlitaState } = this.props;

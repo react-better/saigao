@@ -6,12 +6,14 @@ import { Layout } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import routes from '../routes/config';
 import SiderMenu from './SiderMenu';
+import { connectAlita } from 'redux-alita';
 
 const { Sider } = Layout;
 
 type SiderCustomProps = RouteComponentProps<any> & {
     popoverHide?: () => void;
     collapsed?: boolean;
+    smenus?: any;
 };
 type SiderCustomState = {
     collapsed?: boolean | undefined;
@@ -83,6 +85,7 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
     };
     render() {
         const { selectedKey, openKeys, firstHide, collapsed } = this.state;
+        const { smenus } = this.props;
         return (
             <Sider
                 trigger={null}
@@ -93,7 +96,7 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
             >
                 <div className="logo" />
                 <SiderMenu
-                    menus={routes.menus}
+                    menus={[...routes.menus, ...smenus.data]}
                     onClick={this.menuClick}
                     mode="inline"
                     selectedKeys={[selectedKey]}
@@ -113,4 +116,4 @@ class SiderCustom extends Component<SiderCustomProps, SiderCustomState> {
     }
 }
 
-export default withRouter(SiderCustom);
+export default connectAlita([{ smenus: [] }])(withRouter(SiderCustom));
