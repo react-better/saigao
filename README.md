@@ -6,7 +6,7 @@
 
 > 直接下载 [react-admin](https://github.com/yezihaohao/react-admin) 初始模板作为当前新开发项目
 
-![运行截图](https://raw.githubusercontent.com/yezihaohao/saigao/master/screenshots/test.gif)
+![运行截图](https://raw.githubusercontent.com/yezihaohao/saigao/master/screenshots/saigao.gif)
 
 ### 安装和使用
 
