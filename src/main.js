@@ -20,12 +20,13 @@ const program = new commander.Command(pk.name)
     .description('init react-admin project')
     .arguments('<project-directory>')
     .usage(`${chalk.green('<project-directory>')} [options]`)
-    .action(name => {
+    .action((name) => {
         projectName = name;
     })
     .version(pk.version)
     .option('--js', 'download js template')
-    .on('--help', function() {
+    .option('--tiny', 'download tiny template')
+    .on('--help', function () {
         console.log('');
         example();
     })
@@ -41,8 +42,25 @@ if (typeof projectName === 'undefined') {
 }
 
 checkExist().then(() => {
-    downloadPro(projectName, pk.version, program.js && 'template');
+    downloadPro(projectName, pk.version, chooseTemplate(program));
 });
+
+function chooseTemplate(program) {
+    const temps = {
+        js: 'template',
+        tiny: 'template-tiny',
+    };
+    const keys = Object.keys(temps);
+    let template = null;
+    for (let index = 0; index < keys.length; index++) {
+        const key = keys[index];
+        if (program[key]) {
+            template = temps[key];
+            break;
+        }
+    }
+    return template;
+}
 
 function example() {
     console.log('For example:');

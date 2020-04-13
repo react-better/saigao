@@ -29,5 +29,8 @@ saigao myapp
 如果需要安装下载JavaScript版本的模板，请使用
 ```
 // 安装下载JavaScript版本的模板
-npx saigao myapp --js
+saigao myapp --js
+
+// 安装下载tiny版本的模板
+saigao myapp --tiny
 ```
