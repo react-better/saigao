@@ -1,6 +1,6 @@
 {
   "name": "saigao",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "pro": "dist/saigao.min.js",
   "main": "dist/saigao.cjs.js",
   "module": "dist/saigao.esm.js",
@@ -25,7 +25,8 @@
     "dist",
     "bin",
     "template",
-    "template-ts"
+    "template-ts",
+    "template-tiny"
   ],
   "dependencies": {
     "babel-polyfill": "^6.26.0",
