@@ -14,7 +14,7 @@
         "@types/photoswipe": "^4.0.29",
         "@types/query-string": "^6.3.0",
         "@types/react": "16.9.5",
-        "@types/react-beautiful-dnd": "^11.0.3",
+        "@types/react-beautiful-dnd": "^12.1.2",
         "@types/react-color": "^3.0.1",
         "@types/react-document-title": "^2.0.3",
         "@types/react-dom": "16.9.1",
@@ -70,7 +70,7 @@
         "rc-banner-anim": "^2.4.2",
         "react": "^16.10.2",
         "react-app-polyfill": "^1.0.4",
-        "react-beautiful-dnd": "^11.0.5",
+        "react-beautiful-dnd": "^13.0.0",
         "react-color": "^2.17.3",
         "react-dev-utils": "^9.1.0",
         "react-document-title": "^2.0.3",
@@ -112,7 +112,8 @@
     },
     "husky": {
         "hooks": {
-            "commit-msg": "commitlint -e $GIT_PARAMS"
+            "commit-msg": "commitlint -e $GIT_PARAMS",
+            "pre-commit": "pretty-quick --staged"
         }
     },
     "eslintConfig": {
@@ -202,6 +203,8 @@
         "husky": "^3.0.5",
         "less": "2.x",
         "less-loader": "^5.0.0",
+        "prettier": "^2.0.4",
+        "pretty-quick": "^2.0.1",
         "standard-version": "^7.0.0"
     }
 }

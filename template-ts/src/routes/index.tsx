@@ -3,13 +3,12 @@
  */
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import DocumentTitle from 'react-document-title';
-import AllComponents from '../components';
-import routesConfig, { IFMenuBase, IFMenu } from './config';
-import queryString from 'query-string';
-import { checkLogin } from '../utils';
 import { connectAlita } from 'redux-alita';
 import umbrella from 'umbrella-storage';
+import AllComponents from '../components';
+import routesConfig, { IFMenuBase, IFMenu } from './config';
+import { checkLogin } from '../utils';
+import RouteWrapper from './RouteWrapper';
 
 type CRouterProps = {
     auth: any;
@@ -47,29 +46,12 @@ class CRouter extends Component<CRouterProps, CRouterState> {
                     key={r.route || r.key}
                     exact
                     path={r.route || r.key}
-                    render={props => {
-                        const reg = /\?\S*/g;
-                        // 匹配?及其以后字符串
-                        const queryParams = window.location.hash.match(reg);
-                        // 去除?的参数
-                        const { params } = props.match;
-                        Object.keys(params).forEach(key => {
-                            params[key] = params[key] && params[key].replace(reg, '');
-                        });
-                        props.match.params = { ...params };
-                        const merge = {
-                            ...props,
-                            query: queryParams ? queryString.parse(queryParams[0]) : {},
-                        };
+                    render={(props: any) => {
                         // 重新包装组件
-                        const wrappedComponent = (
-                            <DocumentTitle title={r.title}>
-                                <Component {...merge} />
-                            </DocumentTitle>
+                        const wrapper = (
+                            <RouteWrapper {...{ ...props, Comp: Component, route: r }} />
                         );
-                        return r.login
-                            ? wrappedComponent
-                            : this.requireLogin(wrappedComponent, r.requireAuth);
+                        return r.login ? wrapper : this.requireLogin(wrapper, r.requireAuth);
                     }}
                 />
             );
@@ -89,7 +71,7 @@ class CRouter extends Component<CRouterProps, CRouterState> {
         const { smenus } = this.props;
         return (
             <Switch>
-                {Object.keys(routesConfig).map(key => this.createRoute(key))}
+                {Object.keys(routesConfig).map((key) => this.createRoute(key))}
                 {(smenus.data || umbrella.getLocalStorage('smenus') || []).map(this.iterteMenu)}
                 <Route render={() => <Redirect to="/404" />} />
             </Switch>
